@@ -1,0 +1,22 @@
+<h2>注册新账号</h2>
+<form (ngSubmit)="onRegister()" #form="ngForm">
+  <div>
+    <label>用户名：</label>
+    <input name="username" [(ngModel)]="username" required>
+  </div>
+  <div>
+    <label>密码：</label>
+    <input name="password" type="password" [(ngModel)]="password" required>
+  </div>
+  <div>
+    <label>姓名：</label>
+    <input name="fullName" [(ngModel)]="fullName" required>
+  </div>
+  <div>
+    <label>邮箱：</label>
+    <input name="email" type="email" [(ngModel)]="email" required>
+  </div>
+  <button type="submit" [disabled]="form.invalid">注册</button>
+  <button type="button" (click)="goToLogin()">返回登录</button>
+</form>
+<div *ngIf="msg" [style.color]="msgColor">{{ msg }}</div>

@@ -1,0 +1,15 @@
+<h2 *ngIf="user">{{ user.username }}，欢迎回来！</h2>
+
+<div *ngIf="assignments.length > 0; else noAssignment">
+  <button
+    *ngFor="let a of assignments"
+    (click)="openAssignment(a)"
+    style="margin: 8px;"
+  >
+    {{ a.title }}
+  </button>
+</div>
+
+<ng-template #noAssignment>
+  <div>暂无作业。</div>
+</ng-template>

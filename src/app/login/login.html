@@ -1,0 +1,22 @@
+<form (ngSubmit)="onSubmit()">
+  <label>
+    用户名：
+    <input [(ngModel)]="username" name="username" required>
+  </label>
+  <br>
+  <label>
+    密码：
+    <input [(ngModel)]="password" name="password" type="password" required>
+  </label>
+  <br>
+  <button type="submit" [disabled]="loginLoading">登录</button>
+  <div *ngIf="loginError" style="color:red;">登录失败，请重试</div>
+  <div *ngIf="loginLoading">正在登录...</div>
+</form>
+
+<!-- 注册跳转按钮/链接 -->
+<div style="margin-top: 12px;">
+  <button type="button" (click)="goToRegister()">没有账号？去注册</button>
+  <!-- 或者用超链接，下面这句二选一 -->
+  <!-- <a routerLink="/register">没有账号？去注册</a> -->
+</div>

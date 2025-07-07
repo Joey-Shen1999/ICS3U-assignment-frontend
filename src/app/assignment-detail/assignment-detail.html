@@ -1,0 +1,19 @@
+<div *ngIf="assignment">
+  <h2>{{ assignment.title }}</h2>
+  <p>{{ assignment.description }}</p>
+  <button (click)="downloadPDF()">下载 PDF</button>
+
+  <h3>历史最高成绩: {{ maxScore ?? '无' }}</h3>
+  <h3>历史提交列表</h3>
+  <ul>
+    <li *ngFor="let s of submissions">
+      分数: {{ s.score }}，提交时间: {{ s.submittedAt | date:'yyyy-MM-dd HH:mm' }}
+    </li>
+  </ul>
+
+  <button (click)="showUpload = !showUpload">上传作业</button>
+  <div *ngIf="showUpload">
+    <input type="file" (change)="uploadFile($event)">
+    <button (click)="doUpload()">确认上传</button>
+  </div>
+</div>

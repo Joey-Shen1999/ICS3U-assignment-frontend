@@ -1,0 +1,8 @@
+<ng-container *ngIf="isHomePage(); else loginPage">
+  <h1>{{ title }}</h1>
+  <button (click)="goToLogin()">登录</button>
+  <button (click)="goToRegister()">注册</button>
+</ng-container>
+<ng-template #loginPage>
+  <router-outlet />
+</ng-template>
