@@ -32,4 +32,5 @@ jobs:
           port: 22
           source: "dist/ics-assignment-frontend/browser/**"
           target: "/var/www/html/ics3u-frontend/"
+          strip_components: 3
 
