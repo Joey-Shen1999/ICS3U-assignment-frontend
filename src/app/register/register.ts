@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class Register {
 
   onRegister() {
     this.msg = '';
-    this.http.post('http://localhost:8080/api/students/register', {
+    this.http.post(`${environment.apiUrl}/api/students/register`, {
       username: this.username,
       password: this.password,
       fullName: this.fullName,
@@ -44,7 +45,6 @@ export class Register {
       }
     });
   }
-
 
   goToLogin() {
     this.router.navigate(['/login']);

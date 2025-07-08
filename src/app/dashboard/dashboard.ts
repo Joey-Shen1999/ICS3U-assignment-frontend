@@ -3,6 +3,7 @@ import {AuthService} from '../auth.service';
 import {HttpClient} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {Router} from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +27,7 @@ export class Dashboard implements OnInit {
     this.user = this.auth.getUser();
     if (this.user && this.user.id) {
       // 查询该 owner（登录用户）的 assignment
-      this.http.get<any[]>(`http://localhost:8080/api/assignments/owner/${this.user.id}`)
+      this.http.get<any[]>(`${environment.apiUrl}/api/assignments/owner/${this.user.id}`)
         .subscribe({
           next: data => this.assignments = data,
           error: err => this.assignments = []

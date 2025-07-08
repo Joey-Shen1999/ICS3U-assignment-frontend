@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';  // <-- 导入环境变量
 
 @Component({
   selector: 'app-assignment-detail',
@@ -22,7 +23,7 @@ export class AssignmentDetail implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.http.get<any>(`http://localhost:8080/api/assignments/${id}`).subscribe({
+      this.http.get<any>(`${environment.apiUrl}/api/assignments/${id}`).subscribe({
         next: data => {
           this.assignment = data;
           // 你可以在这里查提交记录
@@ -33,7 +34,7 @@ export class AssignmentDetail implements OnInit {
   }
 
   loadSubmissions(assignmentId: string) {
-    this.http.get<any[]>(`http://localhost:8080/api/submissions/assignment/${assignmentId}`).subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/api/submissions/assignment/${assignmentId}`).subscribe({
       next: list => {
         this.submissions = list;
         // 计算最高成绩
@@ -45,9 +46,7 @@ export class AssignmentDetail implements OnInit {
   }
 
   downloadPDF() {
-    // 跳转到 assignment 详情页，或者下载 pdf，或者你想要的功能
-    window.open(`http://localhost:8080/${this.assignment.pdfPath}`, '_blank');
-    // 或者用路由跳转 this.router.navigate(['/assignment', a.id]);v
+    window.open(`${environment.apiUrl}/${this.assignment.pdfPath}`, '_blank');
   }
 
   uploadFile(event: any) {
@@ -65,7 +64,7 @@ export class AssignmentDetail implements OnInit {
     formData.append('assignmentId', this.assignment.id);
     formData.append('studentId', user.id);
 
-    this.http.post('http://localhost:8080/api/submissions/upload', formData)
+    this.http.post(`${environment.apiUrl}/api/submissions/upload`, formData)
       .subscribe({
         next: (res) => {
           alert('上传成功');

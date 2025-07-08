@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service'; // 路径按你的实际目录调整
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class Login {
   onSubmit() {
     this.loginLoading = true;
     this.loginError = false;
-    this.http.post<any>('http://localhost:8080/api/students/login', {
+    this.http.post<any>(`${environment.apiUrl}/api/students/login`, {
       username: this.username,
       password: this.password
     }).subscribe({
