@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular project
-        run: npm run build -- --configuration production
+        run: npm run build -- --configuration production --base-href=/ics3u-frontend/ --deploy-url=/ics3u-frontend/
 
       - name: Upload dist/ to server via SCP
         uses: appleboy/scp-action@master
@@ -33,4 +33,3 @@ jobs:
           source: "dist/ics-assignment-frontend/browser/**"
           target: "/var/www/html/ics3u-frontend/"
           strip_components: 3
-
