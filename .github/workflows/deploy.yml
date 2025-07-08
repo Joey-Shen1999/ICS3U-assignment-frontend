@@ -30,5 +30,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
-          source: "dist/**"
+          source: "dist/ics-assignment-frontend/browser/**"
           target: "/var/www/html/ics3u-frontend/"
+
