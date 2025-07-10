@@ -32,7 +32,7 @@ export class Login {
   onSubmit() {
     this.loginLoading = true;
     this.loginError = false;
-    this.http.post<any>(`${environment.apiUrl}/api/students/login`, {
+    this.http.post<any>(`${environment.apiUrl}/students/login`, {
       username: this.username,
       password: this.password
     }).subscribe({

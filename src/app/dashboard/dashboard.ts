@@ -27,7 +27,7 @@ export class Dashboard implements OnInit {
     this.user = this.auth.getUser();
     if (this.user && this.user.id) {
       // 查询该 owner（登录用户）的 assignment
-      this.http.get<any[]>(`${environment.apiUrl}/api/assignments/owner/${this.user.id}`)
+      this.http.get<any[]>(`${environment.apiUrl}/assignments/owner/${this.user.id}`)
         .subscribe({
           next: data => this.assignments = data,
           error: err => this.assignments = []

@@ -23,7 +23,7 @@ export class AssignmentDetail implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.http.get<any>(`${environment.apiUrl}/api/assignments/${id}`).subscribe({
+      this.http.get<any>(`${environment.apiUrl}/assignments/${id}`).subscribe({
         next: data => {
           this.assignment = data;
           // 你可以在这里查提交记录
@@ -34,7 +34,7 @@ export class AssignmentDetail implements OnInit {
   }
 
   loadSubmissions(assignmentId: string) {
-    this.http.get<any[]>(`${environment.apiUrl}/api/submissions/assignment/${assignmentId}`).subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/submissions/assignment/${assignmentId}`).subscribe({
       next: list => {
         this.submissions = list;
         // 计算最高成绩
@@ -64,7 +64,7 @@ export class AssignmentDetail implements OnInit {
     formData.append('assignmentId', this.assignment.id);
     formData.append('studentId', user.id);
 
-    this.http.post(`${environment.apiUrl}/api/submissions/upload`, formData)
+    this.http.post(`${environment.apiUrl}/submissions/upload`, formData)
       .subscribe({
         next: (res) => {
           alert('上传成功');
