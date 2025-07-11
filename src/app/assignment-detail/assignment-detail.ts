@@ -46,7 +46,7 @@ export class AssignmentDetail implements OnInit {
   }
 
   downloadPDF() {
-    window.open(`${environment.Url}/${this.assignment.pdfPath}`, '_blank');
+    window.open(`/uploads/${this.assignment.pdfPath}`, '_blank');
   }
 
   uploadFile(event: any) {
