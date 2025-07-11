@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';  // <-- 导入环境变量
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -26,7 +26,6 @@ export class AssignmentDetail implements OnInit {
       this.http.get<any>(`${environment.apiUrl}/assignments/${id}`).subscribe({
         next: data => {
           this.assignment = data;
-          // 你可以在这里查提交记录
           this.loadSubmissions(id);
         }
       });
@@ -37,7 +36,6 @@ export class AssignmentDetail implements OnInit {
     this.http.get<any[]>(`${environment.apiUrl}/submissions/assignment/${assignmentId}`).subscribe({
       next: list => {
         this.submissions = list;
-        // 计算最高成绩
         if (list.length > 0) {
           this.maxScore = Math.max(...list.map(x => x.score));
         }
@@ -46,7 +44,16 @@ export class AssignmentDetail implements OnInit {
   }
 
   downloadPDF() {
-    window.open(`/uploads/${this.assignment.pdfPath}`, '_blank');
+    // 自动判断路径，兼容数据库里存 downloads/xxx.pdf 或 submissions/xxx.pdf
+    let filePath = this.assignment?.pdfPath || this.assignment?.filePath;
+    if (!filePath) {
+      alert('找不到文件路径');
+      return;
+    }
+    if (!filePath.startsWith('/uploads/')) {
+      filePath = '/uploads/' + filePath.replace(/^\/+/, '');
+    }
+    window.open(filePath, '_blank');
   }
 
   uploadFile(event: any) {
@@ -58,7 +65,7 @@ export class AssignmentDetail implements OnInit {
   doUpload() {
     if (!this.file || !this.assignment) return;
 
-    const user = JSON.parse(localStorage.getItem('user') || '{}'); // 或用你的 AuthService
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     const formData = new FormData();
     formData.append('file', this.file);
     formData.append('assignmentId', this.assignment.id);
@@ -69,10 +76,9 @@ export class AssignmentDetail implements OnInit {
         next: (res) => {
           alert('上传成功');
           this.showUpload = false;
-          this.loadSubmissions(this.assignment.id); // 刷新提交记录
+          this.loadSubmissions(this.assignment.id);
         },
         error: () => alert('上传失败')
       });
   }
-
 }
