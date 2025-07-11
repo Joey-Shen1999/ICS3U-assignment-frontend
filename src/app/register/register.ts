@@ -24,7 +24,7 @@ export class Register {
 
   onRegister() {
     this.msg = '';
-    this.http.post(`${environment.apiUrl}/api/api/students/register`, {
+    this.http.post(`${environment.apiUrl}/students/register`, {
       username: this.username,
       password: this.password,
       fullName: this.fullName,
